@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Auth;
 use App\Commands\RegisterUser;
 use App\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
@@ -60,7 +59,11 @@ class AuthController extends Controller
 
         $this->dispatch($registerUserCommand);
 
-        return redirect($this->redirectPath());
+        // At this point no exceptions were thrown by the command handler so it
+        // is safe to assume success and continue
+        $newUser = User::where('email', $request->get('email'))->first();
+
+        return redirect($this->redirectPath())->with('userId', $newUser->id);
     }
 
     /**

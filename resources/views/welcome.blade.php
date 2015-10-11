@@ -19,6 +19,10 @@
                 font-family: 'Lato';
             }
 
+            .row {
+                display: table-row;
+            }
+
             .container {
                 text-align: center;
                 display: table-cell;
@@ -33,9 +37,28 @@
             .title {
                 font-size: 96px;
             }
+
+            .alert {
+                display: table-cell;
+                text-align: center;
+                vertical-align: middle;
+            }
+
+            .alert-success {
+                background: #dff0d8;
+                color: #3c763d;
+                border: 1px solid #3c763d;
+            }
         </style>
     </head>
     <body>
+    @if (session('userId'))
+        <div class="row">
+            <div class="alert alert-success">
+                New user ID: {{ session('userId') }}
+            </div>
+        </div>
+    @endif
         <div class="container">
             <div class="content">
                 <div class="title">Laravel 5</div>
